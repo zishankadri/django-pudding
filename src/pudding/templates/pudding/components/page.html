@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {{ extra_head }}
+
+        {# django-pudding #}
+        <link rel="stylesheet" href="{% static 'pudding/css/styles.css' %}">
+        <script defer src="{% static "pudding/js/bundle.min.js" %}"></script>
+
+
+        {% block extra_head %}
+        {% endblock extra_head %}
+    </head>
+
+    <body class="flex h-screen font-inter bg-background-muted text-foreground-primary">
+        <button id="theme-toggle"
+                class="fixed text-sm bottom-12 left-2 p-2 rounded-lg border border-border-secondary bg-background-subtle hover:bg-background-elevated text-foreground-primary">
+            Switch Mode
+        </button>
+
+        {{ main }}
+
+        {{ modal_frame }}
+
+        {% include "pudding/components/messages.html" %}
+
+        <script>
+            if (localStorage.getItem("theme") === "dark") {
+              document.documentElement.classList.add("dark");
+            }
+
+            document.getElementById("theme-toggle").addEventListener("click", () => {
+                document.documentElement.classList.toggle("dark");
+
+                if (document.documentElement.classList.contains("dark")) {
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    localStorage.setItem("theme", "light");
+                }
+            });
+        </script>
+
+
+        {% block extra_script %}
+        {% endblock extra_script %}
+
+    </body>
+</html>

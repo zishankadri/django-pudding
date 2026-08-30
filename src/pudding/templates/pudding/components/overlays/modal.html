@@ -1,0 +1,35 @@
+{% load i18n %}
+<div
+  class="card border-border-secondary bg-background-muted max-w-lg w-full p-6 shadow-xl max-h-[90vh] overflow-auto"
+>
+    <header
+    class="flex {% if eyebrow or sub_title %}items-center{% else %}items-center{% endif %} justify-start gap-4 mb-4"
+    >
+        {% if icon %}
+        <div
+        class="{{icon_size_css}} flex items-center justify-center aspect-square rounded-lg bg-clip-padding border {{icon_color_classes}}"
+        >
+            <i data-lucide="{{ icon }}"></i>
+        </div>
+        {% endif %}
+        <h2 id="modal-title" class="flex flex-col justify-center">
+            {% if eyebrow %}
+        <span class="font-mono text-sm text-foreground-secondary uppercase">
+            {{ eyebrow }}
+        </span>
+        {% endif %}
+        <span class="{% if not icon %}text-lg{% endif %}">{{ title }}</span>
+        {% if sub_title %}
+            <span class="text-sm text-foreground-secondary">
+                {{ sub_title }}
+            </span>
+        {% endif %}
+        </h2>
+    </header>
+
+    {{ modal_body }}
+
+    <footer class="mt-6 flex justify-end">
+        {{ footer }}
+    </footer>
+</div>

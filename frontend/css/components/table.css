@@ -1,0 +1,59 @@
+@layer components {
+  /* DataTable */
+  .model-table {
+    @apply min-w-full table-fixed divide-y divide-border-tertiary;
+  }
+  .model-table thead {
+    @apply border-none; /* remove the effect of .model-table {devide-y} */
+  }
+  .model-table thead th {
+    @apply px-3 py-2 text-sm font-normal whitespace-nowrap text-ellipsis text-left
+      text-foreground-secondary capitalize bg-background-subtle;
+  }
+
+  .model-table thead th:first-child {
+    @apply rounded-tl-lg rounded-bl-lg;
+  }
+  .model-table thead th:last-child {
+    @apply rounded-tr-lg rounded-br-lg;
+  }
+
+  /* Force checkbox column to shrink */
+  .model-table th:first-child,
+  .model-table td:first-child {
+    @apply w-0;
+  }
+
+  .model-table .action-column-header,
+  .model-table .action-column {
+    @apply text-end w-0
+    sticky right-0 bg-background-primary
+  }
+  .model-table .action-column-header {
+    @apply bg-background-subtle;
+  }
+
+
+  /* Search field */
+  .search-field {
+    @apply relative flex items-center gap-2 rounded-lg border border-border-secondary
+    transition duration-150 ease-in-out px-3.5
+    shadow-xs bg-background-elevated dark:bg-background-primary;
+  }
+  .search-field:focus-within {
+    @apply ring-offset-2 ring-[2px] border-ring/50 ring-ring ring-offset-background-primary;
+  }
+  .search-field__icon {
+    @apply text-foreground-secondary shrink-0 -ml-1;
+  }
+  .search-field__input {
+    @apply flex-1 bg-transparent border-0 outline-none text-sm placeholder:text-foreground-secondary
+    focus-visible:outline-none focus-visible:ring-0;
+  }
+  .search-field--sm {
+    @apply h-9;
+  }
+  .search-field--lg {
+    @apply h-11;
+  }
+}

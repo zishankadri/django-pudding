@@ -1,0 +1,11 @@
+<div class="flex items-center justify-between gap-4 w-max py-1">
+    {% if image_url %}
+        <img src="{{ image_url }}"
+             alt="Image"
+             class="size-8 object-cover rounded-full">
+    {% endif %}
+    <div>
+        <p class="leading-4 truncate">{{ title_text }}</p>
+        {% if subtitle_text %}<p class="text-foreground-secondary truncate">{{ subtitle_text }}</p>{% endif %}
+    </div>
+</div>

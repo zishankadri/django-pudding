@@ -1,0 +1,32 @@
+{
+  "name": "django-pudding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./frontend/css/input.css -o ./src/pudding/static/pudding/css/styles.css",
+    "build:js": "esbuild ./frontend/index.js --bundle --minify --outfile=./src/pudding/static/pudding/js/bundle.min.js",
+    "build": "npm run build:js && npm run build:css",
+
+    "dev:css": "npx @tailwindcss/cli -i ./frontend/css/input.css -o ./src/pudding/static/pudding/css/styles.css --watch",
+    "dev:js": "esbuild ./frontend/index.js --bundle --watch --outfile=./src/pudding/static/pudding/js/bundle.min.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "@alpinejs/focus": "^3.16.1",
+    "alpinejs": "^3.16.1",
+    "htmx.org": "^2.0.10",
+    "lucide": "^1.31.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "esbuild": "0.28.2",
+    "tailwindcss": "^4.3.3"
+  }
+}

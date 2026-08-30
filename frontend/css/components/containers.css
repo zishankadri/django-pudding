@@ -1,0 +1,59 @@
+@layer components {
+  .header-bar {
+    @apply flex justify-between items-center my-3 h-9;
+  }
+
+  .card,
+  .card-spacious,
+  .card-compact {
+    @apply border border-border-secondary rounded-2xl;
+  }
+  .card {
+    @apply p-6;
+  }
+  .card-spacious {
+    @apply p-11;
+  }
+  .card-compact {
+    @apply p-3;
+  }
+
+  .pu-modal {
+    @apply w-auto h-auto max-w-none max-h-none p-0 border-none bg-transparent
+
+    text-foreground-primary
+    fixed inset-0 m-auto opacity-0
+    transition-[opacity,transform,display,overlay] duration-200
+    justify-center items-center;
+
+    transition-behavior: allow-discrete;
+    transform: scale(0.9);
+  }
+
+  .pu-modal[open] {
+    @apply flex opacity-100;
+    transform: scale(1);
+    transition:
+      opacity 0.3s ease-out,
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+      display 0.4s allow-discrete;
+  }
+
+  .pu-modal::backdrop {
+    @apply bg-black/40 backdrop-blur-xs opacity-0 transition-opacity duration-200;
+  }
+
+  .pu-modal[open]::backdrop {
+    @apply opacity-100;
+  }
+
+  @starting-style {
+    .pu-modal[open] {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    .pu-modal[open]::backdrop {
+      opacity: 0;
+    }
+  }
+}

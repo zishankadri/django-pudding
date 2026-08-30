@@ -1,0 +1,25 @@
+@theme {
+    /* --- Fonts --- */
+    --font-poppins: "Poppins", sans-serif;
+    --font-inter: "Inter", sans-serif;
+
+    --text-sm--letter-spacing: 0.02rem;
+
+    /* --- Custom shadows --- */
+    --shadow-elevated: 0 2px 5px rgba(0,0,0,0.10),
+                    0 4px 18px rgba(0,0,0,0.08);
+    --shadow-elevated-strong: 0 2px 5px rgba(0,0,0,0.24),
+                            0 4px 18px rgba(0,0,0,0.18);
+}
+
+@layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+[x-cloak] {
+    display: none !important;
+}

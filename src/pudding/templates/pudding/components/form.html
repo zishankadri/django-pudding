@@ -1,0 +1,30 @@
+<form
+    method="POST"
+    {% if form_id %}id={{ form_id }}{% endif %}
+    {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+    class="flex flex-col text-foreground items-start space-y-4"
+>
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="w-full">
+        <div class="">
+            <label for="{{ field.id_for_label }}"
+                    class="text-foreground-secondary block mb-3 min-w-[14ch] text-sm leading-none select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
+                {{ field.label }}
+                {% if field.field.required %}<span class="text-red-500">*</span>{% endif %}
+            </label>
+            {{ field }}
+        </div>
+
+        {% if field.help_text %}
+            <p class="text-xs text-gray-500 mt-1">{{ field.help_text|safe }}</p>
+        {% endif %}
+
+        {% if field.errors %}
+            <p class="text-sm text-red-600 mt-1">
+                {{ field.errors|striptags }}
+            </p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</form>

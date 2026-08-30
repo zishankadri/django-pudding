@@ -1,0 +1,47 @@
+{% comment %}
+    Reusable pagination component.
+    Requires: is_paginated, page_obj, paginator, request.
+{% endcomment %}
+{% load i18n %}
+{% if is_paginated %}
+    <div class="flex items-center justify-between">
+        <div class="text-sm text-foreground-secondary">
+            {% blocktrans with current=page_obj.number total=paginator.num_pages %}
+                Page {{ current }} of {{ total }}
+            {% endblocktrans %}
+        </div>
+        {% with q=request.GET.q f_field=request.GET.f_field f_op=request.GET.f_op f_value=request.GET.f_value %}
+            <nav class="flex items-center gap-1" aria-label="Table pagination">
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-ghost btn-size-sm"
+                       href="?q={{ q }}&f_field={{ f_field }}&f_op={{ f_op }}&f_value={{ f_value }}&page={{ page_obj.previous_page_number }}"
+                       aria-label="Previous">
+                        {% trans "Previous" %}
+                    </a>
+                {% else %}
+                    <span class="btn btn-ghost btn-size-sm pointer-events-none text-foreground-tertiary">Previous</span>
+                {% endif %}
+                {# Page numbers (windowed) #}
+                {% for num in paginator.page_range %}
+                    {% if num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                        {% if num == page_obj.number %}
+                            <span class="btn btn-ghost bg-neutral-500/25 btn-size-sm pointer-events-none">{{ num }}</span>
+                        {% else %}
+                            <a class="btn btn-ghost btn-size-sm"
+                               href="?q={{ q }}&f_field={{ f_field }}&f_op={{ f_op }}&f_value={{ f_value }}&page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <a class="btn btn-ghost btn-size-sm"
+                       href="?q={{ q }}&f_field={{ f_field }}&f_op={{ f_op }}&f_value={{ f_value }}&page={{ page_obj.next_page_number }}"
+                       aria-label="Next">
+                        {% trans "Next" %}
+                    </a>
+                {% else %}
+                    <span class="btn btn-ghost btn-sm pointer-events-none text-foreground-tertiary">Next</span>
+                {% endif %}
+            </nav>
+        {% endwith %}
+    </div>
+{% endif %}

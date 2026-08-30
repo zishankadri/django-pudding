@@ -1,0 +1,50 @@
+[project]
+name = "django-pudding"
+version = "0.1.1"
+description = "Declarative Python framework for Django to build dashboards and internal apps fast."
+readme = "README.md"
+authors = [
+    { name = "Zishan Kadri", email = "zishankadri01@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.2",
+]
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 5.2",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+license = "MIT"
+license-files = ["LICENSE*", "THIRD_PARTY_LICENSES.txt"]
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = "src"
+module-name = "pudding"
+
+[dependency-groups]
+dev = [
+    "django-stubs[compatible-mypy]>=6.0.9",
+    "mypy>=2.3.0",
+    "ruff>=0.16.2",
+]
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+
+[tool.django-stubs]
+django_settings_module = "tests.settings"

@@ -1,0 +1,56 @@
+{% load i18n %}
+
+<div class="flex flex-1 flex-col gap-3 min-w-0">
+    {% include "pudding/components/table/table_controls.html" %}
+
+    {% if queryset %}
+        <div
+            class="flex-1 min-w-0 max-w-full h-full overflow-auto"
+            x-data="{ selectedCount: 0 }"
+        >
+            <div class="w-full overflow-x-auto">
+                <table x-data="{
+                    openRows: {},
+                    toggle(id) {
+                        this.openRows[id] = !this.openRows[id];
+                    },
+                    isOpen(id) {
+                        return !!this.openRows[id];
+                    },
+                    all: false,
+                }"
+                class="overflow-visible model-table ">
+                    <thead>
+                        <tr class="rounded-xl">
+                            <th>{% include 'pudding/components/table/header_checkbox.html' %}</th>
+                            {% for column in columns %}
+                                <th>{{ column.label }}</th>
+                            {% endfor %}
+                            {% if show_actions_column %}
+                                <th class="action-column-header">{% trans "Actions" %}</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    {{ rows }}
+                </table>
+            </div>
+            {# --- Bulk actions dock ---------------------------------------- #}
+            <div
+                class="absolute bottom-6 left-[50%] translate-x-[-50%] bg-background-primary border border-border-secondary bg-clip-padding gap-1.5 p-2 shadow-elevated dark:shadow-elevated-strong rounded-xl flex"
+                x-cloak
+                x-show="selectedCount > 0"
+                hx-include="input[name='pks[]']:checked"
+            >
+                {% if bulk_actions %}
+                    {{ bulk_actions }}
+                {% else %}
+                    <span class="p-2 text-foreground-secondary">No actions available for this table</span>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        {% include 'pudding/components/table/_table_empty_state.html' %}
+    {% endif %}
+
+    {% include 'pudding/components/table/pagination.html' %}
+</div>

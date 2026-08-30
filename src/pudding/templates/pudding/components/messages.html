@@ -1,0 +1,41 @@
+<!-- Manage django-messages -->
+{% if messages %}
+    {# Bottom and left padding compensates for `overflow-hidden` clipping box shadows prematurely (message.shadow-md ~ (messages.pb-2, messages.pl-1)) #}
+    <ul class="messages fixed flex flex-col gap-1 items-end pb-2 pl-1 top-4 right-6 z-20 overflow-hidden">
+        {% for message in messages %}
+            {# Notification card with simple slide-in animation #}
+            <li x-data="{ show: false }"
+                x-init="requestAnimationFrame(() => show = true)"
+                x-cloak
+                :class="show ? 'right-0 opacity-100' : '-right-40 opacity-0'"
+                class="message border-t border-border-secondary shadow-elevated dark:shadow-elevated-strong transition-[right, opacity] duration-200 flex rounded-xl overflow-hidden justify-between max-w-md shadow-md bg-background-elevated z-20 relative">
+                <div class="flex items-start p-4 gap-4">
+                    <div class="flex items-center h-[calc(var(--leading-normal)*1em)]">
+                        {% if message.tags == 'error' %}
+                            <i data-lucide="check-circle" class="text-error"></i>
+                        {% elif message.tags == 'info' %}
+                            <i data-lucide="check-circle" class="text-blue-400"></i>
+                        {% elif message.tags == 'success' %}
+                            <i data-lucide="check-circle" class="text-success"></i>
+                        {% endif %}
+                    </div>
+                    {{ message }}
+                </div>
+                <button class="msg-destroy-btn text-foreground-secondary p-4 hover:bg-foreground-primary/5">
+                    <i data-lucide="x"></i>
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<script>
+    // Close message btn
+    const messages = document.getElementsByClassName("message");
+    for (let i = 0; i < messages.length; i++) {
+        const message = messages[i];
+        let cutBtn = message.querySelector('.msg-destroy-btn')
+        cutBtn.onclick = () => {
+            message.style.display = "none";
+        }
+    }
+</script>

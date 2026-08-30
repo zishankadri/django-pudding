@@ -1,0 +1,40 @@
+# Python-generated files
+__pycache__/
+*.py[cod]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets
+.env
+
+# Testing & Quality Caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+
+# Node.js
+node_modules/
+*.map
+
+# Logs
+*.log
+
+# Translations
+*.mo
+*.pot
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode

@@ -1,0 +1,62 @@
+<div
+    x-data="{ isOpen: false, isLoading: false, error: false }"
+    @open-{{target_id}}.window="
+        if (!isOpen) {
+            isLoading = true;
+            $refs.puddingModalContent.innerHTML = '';
+        }
+        isOpen = true;
+        error = false;
+        $refs.puddingModal.showModal();
+    "
+    @htmx:after-swap.window="isLoading = false; error = false"
+    @htmx:response-error.window="isLoading = false; error = true"
+    @htmx:send-error.window="isLoading = false; error = true"
+>
+    <dialog
+        id="{{ target_id }}-dialog"
+        class="pu-modal"
+        x-ref="puddingModal"
+        x-trap="isOpen"
+        hx-on::after-settle="this.querySelector('input:not([type=hidden]), select, textarea')?.focus()"
+        @click.self="$refs.puddingModal.close()"
+        @close="isOpen = false"
+    >
+        <div class="w-lg">
+            <!-- Content -->
+            <div
+                id="{{ target_id }}"
+                class="overflow-hidden rounded-2xl"
+                x-ref="puddingModalContent"
+                x-show="!isLoading && !error"
+            >
+                {{ default_content }}
+            </div>
+            <!-- Loading Spinner -->
+            <div
+                class="htmx-indicator card w-lg h-80 max-w-lg w-full bg-background-muted p-6 flex justify-center items-center"
+                x-show="isLoading"
+            >
+                <i data-lucide="loader-circle" class="animate-spin text-primary w-6 h-6"></i>
+            </div>
+            <!-- Server Error / Down State -->
+            <div x-show="error">
+                <div class="card w-lg h-80 max-w-lg bg-background-muted p-6 flex flex-col justify-center items-center gap-4 text-center">
+                    <p class="text-sm font-mono font-medium flex items-center justify-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-red-500 shrink-0 animate-pulse"></span>
+                        Unable to connect to the server.
+                    </p>
+                    <div>
+                        <button
+                            class="btn btn-size-sm btn-outline bg-transparent hover:bg-neutral-500/15"
+                            @click="$refs.puddingModal.close()"
+                        >
+                            <i data-lucide="x"></i>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+</div>

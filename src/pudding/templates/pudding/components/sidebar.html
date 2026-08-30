@@ -1,0 +1,21 @@
+{% load i18n %}
+
+<aside
+    id="sidebar"
+    class="hidden lg:flex w-60 px-2 flex-col"
+    x-data="{ activeId: '{{ active_id }}' }"
+    @set-active-sidebar-item.window="activeId = $event.detail.slug"
+>
+    {% if header_content %}
+    <div class="flex items-center mt-3 h-9 gap-2">
+        {{ header_content }}
+    </div>
+    {% endif %}
+
+    <nav class="flex flex-col mt-3 gap-1 text-muted-foreground">
+        {{ sidebar_items }}
+    </nav>
+    <div class="mb-4 flex flex-col gap-0.5 mt-auto">
+        {{ bottom_items }}
+    </div>
+</aside>

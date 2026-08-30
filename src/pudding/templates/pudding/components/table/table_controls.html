@@ -1,0 +1,97 @@
+{% comment %}
+    Interactive elements positioned above the data table
+    - Search input (query 'q')
+    - three-part filter form (field, operator, and value).
+
+    Requires:
+    - filter_fields: A list or queryset of model field names (strings) available for filtering.
+{% endcomment %}
+{% load i18n %}
+
+<div class="flex justify-between items-center gap-3"
+     x-data="{ open: false }">
+    <!-- Search -->
+    <form method="get" class="w-full max-w-sm">
+        <label class="search-field search-field--sm">
+            <i data-lucide="search" class="search-field__icon"></i>
+            <input type="text"
+                   name="q"
+                   placeholder="{% trans 'Type to search' %}"
+                   class="search-field__input">
+        </label>
+    </form>
+    <!-- Filters -->
+    <div class="relative">
+        <button type="button" class="btn btn-outline btn-size-normal" @click="open = !open">
+            <i data-lucide="filter" class="icon-left"></i>
+            {% trans "Filters" %}
+        </button>
+        <div x-cloak
+             x-show="open"
+             @click.outside="open = false"
+             class="absolute right-0 mt-2 z-20 w-80 p-6 bg-background-primary border border-border-secondary rounded-xl shadow-elevated">
+            <form method="get" class="flex flex-col gap-3">
+                <div class="grid grid-cols-3 gap-2 items-center">
+                    <label class="text-sm text-foreground-secondary col-span-1">
+                        {% trans "Field" %}
+                    </label>
+                    <select name="filter_field" class="form-input col-span-2">
+                        {% for f in filter_fields %}
+                            <option value="{{ f }}">
+                                {{ f|capfirst }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="grid grid-cols-3 gap-2 items-center">
+                    <label class="text-sm text-foreground-secondary col-span-1">
+                        {% trans "Operator" %}
+                    </label>
+                    <select name="filter_operation" class="form-input col-span-2">
+                        <option value="eq">
+                            {% trans "Equals" %}
+                        </option>
+                        <option value="neq">
+                            {% trans "Not equal" %}
+                        </option>
+                        <option value="contains">
+                            {% trans "Contains" %}
+                        </option>
+                        <option value="startswith">
+                            {% trans "Starts with" %}
+                        </option>
+                        <option value="endswith">
+                            {% trans "Ends with" %}
+                        </option>
+                        <option value="gt">
+                            {% trans "Greater than" %}
+                        </option>
+                        <option value="gte">
+                            {% trans "Greater or equal" %}
+                        </option>
+                        <option value="lt">
+                            {% trans "Less than" %}
+                        </option>
+                        <option value="lte">
+                            {% trans "Less or equal" %}
+                        </option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-3 gap-2 items-center">
+                    <label class="text-sm text-foreground-secondary col-span-1">
+                        {% trans "Value" %}
+                    </label>
+                    <input type="text" name="filter_value" class="form-input col-span-2" />
+                </div>
+                <div class="flex justify-end gap-2 pt-3">
+                    <a href="?" class="btn btn-ghost">
+                        {% trans "Clear" %}
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        {% trans "Apply" %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

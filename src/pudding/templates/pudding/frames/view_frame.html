@@ -1,0 +1,36 @@
+<div
+    class="card bg-background-primary mb-3 flex-1 flex flex-col gap-3"
+    x-data="{ isLoading: false, error: false }"
+    @show-loading-{{ target_id }}.window="isLoading = true; error = false"
+    @show-error-{{ target_id }}.window="error = true; isLoading = false"
+    @htmx:after-swap.window="isLoading = false; error = false"
+>
+    <div
+        x-show="!isLoading && !error"
+        class="flex flex-1"
+        id="{{ target_id }}"
+    >
+        {{ default_content }}
+    </div>
+    <!-- Loading Spinner -->
+    <div
+        x-show="isLoading"
+        class="w-full h-full p-6 flex flex-1 justify-center items-center"
+    >
+        <i data-lucide="loader-circle" class="animate-spin text-foreground-secondary w-10 h-10"></i>
+    </div>
+    <!-- Server Error / Down State -->
+    <div
+        x-show="error"
+        class="w-full h-full flex flex-1 flex-col justify-center items-center gap-4 text-center"
+    >
+        <p class="flex items-center justify-center gap-2">
+            <div class="p-3 rounded-lg bg-red-500/10 text-red-500  shrink-0 animate-pulse">
+                <i data-lucide="cloud-alert" class="text-2xl"></i>
+            </div>
+            <p>
+                Unable to connect to the server.
+            </p>
+        </p>
+    </div>
+</div>

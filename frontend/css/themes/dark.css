@@ -1,0 +1,26 @@
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-background-primary: oklch(23% 0.004 286);
+  --color-background-muted: oklch(26% 0.004 286);
+  --color-background-subtle: oklch(25% 0.004 286);
+
+  --color-background-elevated: oklch(24.4% 0.006 286.033);
+  --color-subtle-hover: oklch(26.7% 0 0);
+
+  --color-border: oklch(1 0 0 / 0.15);
+  --color-border-secondary: oklch(1 0 0 / 0.08);
+  --color-border-tertiary: oklch(1 0 0 / 0.05);
+
+  --color-input-focus: oklch(55% 0 0);
+  --color-ring: oklch(92% 0 0);
+
+  --color-foreground-primary: oklch(92% 0 0);
+  --color-foreground-secondary: oklch(65% 0 0);
+  --color-foreground-tertiary: oklch(50% 0 0);
+  --color-foreground-light: oklch(50% 0 0);
+
+  --color-brand: oklch(92% 0 0);
+  --color-on-brand: oklch(22% 0 0);
+  --color-brand-hover: oklch(87.1% 0 0);
+}

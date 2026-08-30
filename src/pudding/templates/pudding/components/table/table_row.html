@@ -1,0 +1,54 @@
+<tbody>
+    <tr>
+        <td class="pl-3 py-4 text-sm whitespace-nowrap text-ellipsis w-fit">
+            <!-- Checkbox -->
+            <div class="flex items-center">
+                <label class="flex items-center cursor-pointer relative">
+                    <input type="checkbox"
+                            name="pks[]"
+                            value="{{ row.id }}"
+                            @change="selectedCount = $root.querySelectorAll('.row-check:checked').length"
+                            class="row-check peer h-5 w-5 cursor-pointer transition-all appearance-none rounded border border-border-secondary checked:bg-brand checked:border-border" />
+                    <span class="absolute text-background-primary bg-background-primary opacity-0 peer-checked:bg-brand peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-3.5 w-3.5"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                stroke="currentColor"
+                                stroke-width="1">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd">
+                            </path>
+                        </svg>
+                    </span>
+                </label>
+            </div>
+        </td>
+
+        {{ columns }}
+
+        {% if row_actions %}
+        <td>
+            <div class="flex justify-end"
+                    hx-vals='{"pks[]": "{{ row.id }}"}'>
+                {{ row_actions }}
+            </div>
+        </td>
+        {% endif %}
+    </tr>
+
+    {% if row_detail_template %}
+        <tr class="border-none">
+            <td colspan="100%" class="p-0">
+                <div
+                    class="overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out"
+                    :style="isOpen({{ row.id }}) ? 'max-height: ' + $el.scrollHeight + 'px; opacity: 1;' : 'max-height: 0px; opacity: 0;'"
+                    :class="isOpen({{ row.id }}) ? 'pointer-events-auto' : 'pointer-events-none'"
+                >
+                    <div class="bg-background-muted rounded-br-xl rounded-bl-xl ">
+                        {{ row_detail_template }}
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endif %}
+</tbody>
