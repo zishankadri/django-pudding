@@ -52,7 +52,7 @@ type LookType = Callable[[TriggerProps], str]
 
 
 class UnsetType:
-    """A sentinel representing an unset value in the UI framework."""
+    """A sentinel representing an unset value."""
 
     def __repr__(self) -> str:
         return "UNSET"

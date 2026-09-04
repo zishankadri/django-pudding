@@ -3,7 +3,6 @@ from .breadcrumbs import BreadcrumbLabel, Breadcrumbs
 from .columns import FieldColumn, ProfileColumn
 from .columns.base import Column
 from .frames import breadcrumb_frame, header_triggers_frame, modal_frame, view_frame
-from .hooks import modal_hook
 from .looks import looks
 from .modal import ActionModal, Modal
 from .pages import DashboardPage, Page
@@ -22,8 +21,6 @@ __all__ = [  # noqa: RUF022
     "header_triggers_frame",
     "modal_frame",
     "view_frame",
-    # hooks.py
-    "modal_hook",
     # triggers.py
     "Trigger",
     "Dropdown",

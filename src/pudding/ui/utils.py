@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 
-from pudding import domains, ui
+from pudding import ui
 from pudding.ui.contracts import AttrValue, HtmlAttrs, Lazy
 
 
@@ -93,6 +93,8 @@ def build_render_context(
 
 
 def build_sidebar_from_domains(ctx: dict[str, Any]):
+    from pudding import domains
+
     sidebar_items = []
     for slug, domain_class in domains.get_all().items():
         item = ui.Trigger.action(

@@ -1,5 +1,5 @@
 """
-Built in components of HTMX/Alpine wiring for frames
+Built in components for frames, wired with HTMX and Alpine.
 """
 
 from pudding.ui.primitives import Frame

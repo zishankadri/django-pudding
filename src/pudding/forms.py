@@ -28,3 +28,10 @@ class StyledModelForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         apply_tailwind_classes(form=self)
+
+
+class StyledForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        apply_tailwind_classes(form=self)

@@ -21,7 +21,6 @@ from django.template.loader import render_to_string
 from django.utils.html import conditional_escape, format_html
 from django.utils.translation import gettext_lazy as _
 
-from pudding.actions.contracts import Action
 from pudding.ui.contracts import UNSET, Lazy, UnsetType
 from pudding.ui.utils import build_render_context, resolve_lazy
 

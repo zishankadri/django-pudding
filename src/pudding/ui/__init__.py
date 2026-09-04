@@ -19,7 +19,6 @@ from .components import (
     header_triggers_frame,
     looks,
     modal_frame,
-    modal_hook,
     sidebar,
     view_frame,
 )
@@ -40,7 +39,6 @@ __all__ = [  # noqa: RUF022
     "header_triggers_frame",
     "modal_frame",
     "view_frame",
-    "modal_hook",
     # Looks
     "looks",
     # Pages

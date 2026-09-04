@@ -74,13 +74,15 @@ class Domain:
     def from_model(
         cls,
         model: type[models.Model],
-        slug: str,
+        slug: str | None = None,
         icon: str | None = None,
         columns: Sequence[ui.Column | str] | None = None,
         **kwargs,
     ) -> Domain:
         from pudding import ui
         from pudding.actions import Add, Delete, Edit, View
+
+        resolved_slug = slug or model._meta.model_name
 
         view = ui.Table(
             model=model,
@@ -94,9 +96,11 @@ class Domain:
 
         actions: list[Action] = [
             View(view=view, header_actions=[Add().trigger]),
-            Add(permission=lambda req: req.user.is_staff),
+            Add(),
             Edit(),
             Delete(),
         ]
 
-        return cls(slug=slug, icon=icon, model=model, actions=actions, **kwargs)
+        return cls(
+            slug=resolved_slug, icon=icon, model=model, actions=actions, **kwargs
+        )

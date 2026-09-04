@@ -9,7 +9,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseNotAllowed
 
 from pudding.actions.contracts import ActionHook, ActionStep
 from pudding.ui import Trigger
-from pudding.ui.primitives import Trigger as CoreTrigger
+from pudding.ui.primitives.triggers import Trigger as CoreTrigger
 
 
 @dataclass(kw_only=True)
@@ -90,6 +90,7 @@ def interactive_action(
     permission: Callable[[HttpRequest], bool] | None = None,
 ) -> Callable[[Callable], FunctionalInteractiveAction]:
     def decorator(func: Callable) -> FunctionalInteractiveAction:
+
         display_label = label or slug.replace("_", " ").replace("-", " ").capitalize()
         trigger = Trigger.action(
             slug,
